@@ -18,7 +18,7 @@ public class SpringSecurity {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/public/**").permitAll()
+                        .requestMatchers("/journal/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(withDefaults()); // Default login page
