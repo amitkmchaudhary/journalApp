@@ -27,7 +27,7 @@ public class UserService {
 
      public void saveNewUser(User user){
          user.setPassword(passwordEncoder.encode(user.getPassword()));
-         user.setRoles(new ArrayList<>(List.of("ROLE_USER")));
+         user.setRoles(new ArrayList<>(List.of("USER")));
         userRepository.save(user);
          }
 
@@ -45,7 +45,7 @@ public class UserService {
          userRepository.deleteById(id);
      }
 
-     public User FindByUsername(String username){
+     public User FindByUserName(String username){
          return userRepository.findByUsername(username);
      }
 }

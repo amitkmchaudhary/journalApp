@@ -30,7 +30,7 @@ public class UserController {
     public ResponseEntity<?> updateUser(@RequestBody User user){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
-        User userdb = userService.FindByUsername(userName);
+        User userdb = userService.FindByUserName(userName);
         userdb.setUsername(user.getUsername());
         userdb.setPassword(user.getPassword());
         userService.saveEntry(userdb);

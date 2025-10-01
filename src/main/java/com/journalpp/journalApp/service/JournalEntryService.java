@@ -20,7 +20,7 @@ public class JournalEntryService {
 
      public void saveEntry(JournalEntry journalEntry,String UserName){
          try {
-             User user = userService.FindByUsername(UserName);
+             User user = userService.FindByUserName(UserName);
              journalEntry.setDate(LocalDateTime.now());
              JournalEntry saved = journalEntryRepository.save(journalEntry);
              user.getJournalEntries().add(saved);
@@ -47,7 +47,7 @@ public class JournalEntryService {
      }
 
      public void deleteById(ObjectId id,String username){
-         User user = userService.FindByUsername(username);
+         User user = userService.FindByUserName(username);
          System.out.println(user);
 //         User userdb = userService.FindByUsername(UserName);
          user.getJournalEntries().removeIf(x -> x.getId().equals(id));
