@@ -81,7 +81,7 @@ public class JournalEntryControllerV2 {
         if (!collector.isEmpty()){
             Optional<JournalEntry> journalEntry = journalEntryService.findById(myId);
             if (journalEntry.isPresent()){
-                JournalEntry old = journalEntry.get();
+                journalEntry old = journalEntry.get();
                 return new ResponseEntity<>(journalEntry.get(),HttpStatus.OK);
             }
         }
