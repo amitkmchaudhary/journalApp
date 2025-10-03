@@ -72,7 +72,7 @@ public class JournalEntryControllerV2 {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping("id/{username}/{myId}")
+    @PutMapping("id/{myId}")
     public ResponseEntity<?> updateEnrtybyid(@PathVariable ObjectId myId, @RequestBody JournalEntry newEntry){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
@@ -81,17 +81,12 @@ public class JournalEntryControllerV2 {
         if (!collector.isEmpty()){
             Optional<JournalEntry> journalEntry = journalEntryService.findById(myId);
             if (journalEntry.isPresent()){
-                journalEntry old = journalEntry.get();
-                return new ResponseEntity<>(journalEntry.get(),HttpStatus.OK);
+                JournalEntry old = journalEntry.get();
+                old.setTitle(newEntry.getTitle()!=null && !newEntry.getTitle().isEmpty() ?newEntry.getTitle() : old.getTitle() );
+                old.setContent(newEntry.getContent()!=null && !newEntry.getContent().isEmpty() ? newEntry.getContent() : old.getContent());
+                journalEntryService.saveEntry(old);
+                return new ResponseEntity<>(old,HttpStatus.OK);
             }
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        if(old!= null)
-        {
-            old.setTitle(newEntry.getTitle()!=null && !newEntry.getTitle().isEmpty() ?newEntry.getTitle() : old.getTitle() );
-            old.setContent(newEntry.getContent()!=null && !newEntry.getContent().isEmpty() ? newEntry.getContent() : old.getContent());
-            journalEntryService.saveEntry(old);
-            return new ResponseEntity<>(old,HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
