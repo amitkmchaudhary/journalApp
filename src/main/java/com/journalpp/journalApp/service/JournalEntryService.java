@@ -4,6 +4,8 @@ import com.journalpp.journalApp.entity.JournalEntry;
 import com.journalpp.journalApp.entity.User;
 import com.journalpp.journalApp.repository.JournalEntryRepository;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,8 @@ public class JournalEntryService {
     @Autowired
     private  UserService userService;
 
+
+    @Transactional
     public void saveEntry(JournalEntry journalEntry,String UserName){
         try {
             User user = userService.FindByUserName(UserName);
